@@ -9,6 +9,7 @@ const MenuItemSchema = new Schema({
 const MenuSchema = new Schema({
 	title: String,
 	href: String,
+	date: Date,
 	group: [MenuItemSchema]
 
 })
@@ -21,6 +22,7 @@ const Models = {
 const initialize = () => {
 	console.log('initialize data')
 }
+mongoose.set('bufferCommands', false);
 mongoose.connect('mongodb://localhost/cherrypieDb')
 const db = mongoose.connection
 db.on('error', console.error.bind(console,'Database connection error.'))
