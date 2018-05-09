@@ -8,6 +8,7 @@ router.post('/api/picture', upload, (req, res) => {
 	let file = req.files[0];
 	const  _id = 'picture' + new Date().getTime();
 	file._id = _id;
+	file.timestamp = Date();
     new db.picture(file).save().then(() => {
         res.status(200).send({_id: _id})
     }).catch(err => {

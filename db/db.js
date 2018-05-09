@@ -13,8 +13,11 @@ const MenuSchema = new Schema({
 	group: [MenuItemSchema]
 
 })
+
+
 const PictureSchema =  new Schema({
 	_id: String,
+	timestamp: Date,
 	fieldname: String,
 	originalname: String,
 	encoding: String,
@@ -23,9 +26,29 @@ const PictureSchema =  new Schema({
 	size: Number
 })
 
+const ProductDetailSchema = new Schema({
+	label: String,
+	value: String
+})
+
+const ProductSchema =  new Schema({
+	_id: String,
+	timestamp: Date,
+	picture: Array,
+	sku: String,
+	originalname: String,
+	description: String,
+	price: Number,
+	currency: Number,
+	occasion: Buffer,
+	details: [ProductDetailSchema]
+})
+
+
 const Models = {
 	menu: mongoose.model('menu', MenuSchema),
-	picture: mongoose.model('picture', PictureSchema)
+	picture: mongoose.model('picture', PictureSchema),
+	product: mongoose.model('product', ProductSchema)
 }
 
 //初始化数据
