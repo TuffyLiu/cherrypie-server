@@ -13,9 +13,19 @@ const MenuSchema = new Schema({
 	group: [MenuItemSchema]
 
 })
+const PictureSchema =  new Schema({
+	_id: String,
+	fieldname: String,
+	originalname: String,
+	encoding: String,
+	mimetype: String,
+	buffer: Buffer,
+	size: Number
+})
 
 const Models = {
-	menu: mongoose.model('menu', MenuSchema)
+	menu: mongoose.model('menu', MenuSchema),
+	picture: mongoose.model('picture', PictureSchema)
 }
 
 //初始化数据
@@ -23,7 +33,7 @@ const initialize = () => {
 	console.log('initialize data')
 }
 mongoose.set('bufferCommands', false);
-mongoose.connect('mongodb://localhost/cherrypieDb')
+mongoose.connect('mongodb://localhost:27018/cherrypieDb');
 const db = mongoose.connection
 db.on('error', console.error.bind(console,'Database connection error.'))
 

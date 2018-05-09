@@ -13,7 +13,7 @@ router.get('/api/menus', (req, res) => {
 	})
 })
 
-// update one menu 
+// update one menu
 router.patch('/api/menu/:id', (req, res) => {
 	let _id = req.params.id
     let menu = {
