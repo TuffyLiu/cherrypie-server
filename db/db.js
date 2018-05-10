@@ -39,8 +39,8 @@ const ProductSchema =  new Schema({
 	originalname: String,
 	description: String,
 	price: Number,
-	currency: Number,
-	occasion: Buffer,
+	currency: String,
+	occasion: Array,
 	details: [ProductDetailSchema]
 })
 

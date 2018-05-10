@@ -42,7 +42,7 @@ router.post('/api/menu', (req, res) => {
     }
     new db.menu(menu).save().then(() => {
         res.status(200).send({code:1})
-    }).catch(err => { 
+    }).catch(err => {
     	res.status(500).send({code:-1})
     })
 
