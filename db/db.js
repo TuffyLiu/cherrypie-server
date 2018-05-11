@@ -36,7 +36,7 @@ const ProductSchema =  new Schema({
 	timestamp: Date,
 	picture: Array,
 	sku: String,
-	originalname: String,
+	title: String,
 	description: String,
 	price: Number,
 	currency: String,
