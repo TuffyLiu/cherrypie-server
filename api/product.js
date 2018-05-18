@@ -1,6 +1,6 @@
-const express = require('express')
-const router = express.Router()
-const db = require('../db/db.js')
+const express = require('express');
+const router = express.Router();
+const db = require('../db/db.js');
 
 // insert on product
 router.post('/api/product', (req, res) => {
@@ -9,12 +9,12 @@ router.post('/api/product', (req, res) => {
 	product._id = _id;
 	product.timestamp = Date();
     new db.product(product).save().then(() => {
-        res.status(200).send({_id:_id})
+        res.status(200).send({_id:_id});
     }).catch(err => {
     	console.error(err);
-    	res.status(500).send({code:500})
-    })
-})
+    	res.status(500).send({code:500});
+    });
+});
 
 // get all product list
 router.get('/api/products', (req, res) => {
@@ -30,22 +30,37 @@ router.get('/api/products', (req, res) => {
 	const keyword = query.keyword || null;
 	let q = {};
 	if (keyword) {
-		const reg = new RegExp(keyword, 'i') //不区分大小写
+		const reg = new RegExp(keyword, 'i'); //不区分大小写
 		q = {
 	        $or : [ //多条件，数组
 	            {description : {$regex : reg}},
-	            {title : {$regex : reg}}
+	            {title : {$regex : reg}},
+	            {occasion: keyword},
+	            {'details.value': {$regex : reg}}
 	        ]
 	    };
 	}
 	db.product.count(q).then(function(count){
 		db.product.find(q).sort(sort).limit(size).skip(current - 1).then(function(doc){
-			res.status(200).send({total:count,list:doc,current:current})
+			res.status(200).send({total:count,list:doc,current:current});
 		}).catch(err => {
 	    	console.error(err);
-	    	res.status(500).send({code:500})
-	    })
-	})
-})
+	    	res.status(500).send({code:500});
+	    });
+	});
+});
 
-module.exports = router
+// get all product by  _id
+router.get('/api/product/:id', (req, res) => {
+	const _id = req.params.id;
+	db.product.find({_id: _id}).then(function(doc){
+		res.status(200).send(doc);
+	}).catch(err => {
+    	console.error(err);
+    	res.status(500).send({code:500});
+    });
+});
+
+
+
+module.exports = router;
