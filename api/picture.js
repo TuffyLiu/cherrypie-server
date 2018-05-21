@@ -25,7 +25,6 @@ router.get('/api/picture/:id', (req, res) => {
 			console.error(err);
 			res.status(500).send({code:500});
 		} else {
-			console.error(doc);
 			doc = doc[0];
 			res.header('Access-Control-Allow-Origin', '*');
 		    res.writeHead(200, {'Content-Type': doc.mimetype });
